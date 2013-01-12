@@ -23,8 +23,8 @@ default_action :create
 attribute :name, :kind_of => String, :name_attribute => true
 attribute :owner, :kind_of => String, :required => true
 attribute :group, :kind_of => String, :required => true
-attribute :ssh_key_dir, :kind_of => String, :default => "#{ENV['HOME']}/.ssh"
-attribute :ssh_wrapper_dir, :kind_of => String, :default => ENV['HOME']
+attribute :ssh_key_dir, :kind_of => String
+attribute :ssh_wrapper_dir, :kind_of => String
 attribute :ssh_key_data, :kind_of => String, :required => true
 
 

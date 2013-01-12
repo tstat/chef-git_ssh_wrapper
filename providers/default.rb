@@ -18,24 +18,27 @@
 #
 
 action :create do
+  owner_home = Etc.getpwnam(new_resource.owner).dir
+  ssh_key_dir = new_resource.ssh_key_dir || "#{owner_home}/.ssh"
+  ssh_wrapper_dir = new_resource.ssh_wrapper_dir || "#{owner_home}/.ssh/wrappers"
   
-  directory new_resource.ssh_key_dir do
+  directory ssh_key_dir do
     owner new_resource.owner
     group new_resource.group
     mode 0640
     recursive true
-    not_if { test "R", new_resource.ssh_key_dir }
+    not_if { test "R", ssh_key_dir }
   end
 
-  directory new_resource.ssh_wrapper_dir do
+  directory ssh_wrapper_dir do
     owner new_resource.owner
     group new_resource.group
     mode 0750
     recursive true
-    not_if { test "R", new_resource.ssh_wrapper_dir }
+    not_if { test "R", ssh_wrapper_dir }
   end
 
-  template "#{new_resource.ssh_key_dir}/#{new_resource.name}_deploy_key" do
+  template "#{ssh_key_dir}/#{new_resource.name}_deploy_key" do
     cookbook 'git_ssh_wrapper'
     source "deploy_key.erb"
     owner new_resource.owner
@@ -44,14 +47,14 @@ action :create do
     variables({ :ssh_key_data => new_resource.ssh_key_data })
   end
 
-  template "#{new_resource.ssh_wrapper_dir}/#{new_resource.name}_deploy_wrapper.sh" do
+  template "#{ssh_wrapper_dir}/#{new_resource.name}_deploy_wrapper.sh" do
     cookbook 'git_ssh_wrapper'
     source "git_ssh_wrapper.erb"
     owner new_resource.owner
     group new_resource.group
     mode 0700
     variables({
-          :ssh_key_dir => new_resource.ssh_key_dir,
+          :ssh_key_dir => ssh_key_dir,
           :name => new_resource.name
       })
     new_resource.updated_by_last_action(true)

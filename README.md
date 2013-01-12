@@ -23,7 +23,7 @@ Usage
 
 ```ruby
 git_ssh_wrapper "example" do
-  owner 'custer'
+  user 'custer'
   group 'custer'
   ssh_key_data data_bag['deploy_key']
 end
