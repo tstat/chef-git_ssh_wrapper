@@ -22,9 +22,23 @@ Usage
 --------------
 
 ```ruby
+# Generate the wrapper and private key file
 git_ssh_wrapper "my_app" do
   owner 'my_user'
   group 'my_group'
   ssh_key_data data_bag['deploy_key']
 end
+
+# A deploy script example referencing the generated shell file
+deploy "my_app" do
+  repo "git@github.com/my_user/my_app.git"
+  user "my_user"
+  deploy_to "/var/www/my_app.com"
+  action :deploy
+  ssh_wrapper "/home/my_user/my_app_deploy_wrapper.sh
 ```
+
+The generated shell file that you must reference in your deploy block is `deploy_wrapper.sh` prepended by whatever you
+pass into the name attribute.
+
+
