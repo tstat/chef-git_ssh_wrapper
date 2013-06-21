@@ -25,7 +25,7 @@ action :create do
   directory ssh_key_dir do
     owner new_resource.owner
     group new_resource.group
-    mode 0640
+    mode 0700
     recursive true
     not_if { test "R", ssh_key_dir }
   end
@@ -33,7 +33,7 @@ action :create do
   directory ssh_wrapper_dir do
     owner new_resource.owner
     group new_resource.group
-    mode 0750
+    mode 0700
     recursive true
     not_if { test "R", ssh_wrapper_dir }
   end
