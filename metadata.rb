@@ -1,3 +1,4 @@
+name             "git_ssh_wrapper"
 maintainer       "Travis Staton"
 maintainer_email "hello@travisstaton.com"
 license          "Apache 2.0"
