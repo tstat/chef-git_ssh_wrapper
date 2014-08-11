@@ -14,8 +14,8 @@ Attributes
 * name: The name attribute, to prepended to the ssh key and the wrapper
 * owner: to specify the owner of the generated files
 * group: to specify the group of the generated files
-* ssh_key_dir: the directory that the ssh key will be placed in, default => ~/.ssh
-* ssh_wrapper_dir: the directory that the wrapper will be placed in, default => ~/
+* ssh_key_dir: the directory that the ssh key will be placed in, default => ~/.ssh/
+* ssh_wrapper_dir: the directory that the wrapper will be placed in, default => ~/.ssh/wrappers/
 * ssh_key_data: the private ssh key
 
 Usage
@@ -35,7 +35,8 @@ deploy "my_app" do
   user "my_user"
   deploy_to "/var/www/my_app.com"
   action :deploy
-  ssh_wrapper "/home/my_user/my_app_deploy_wrapper.sh
+  ssh_wrapper "/home/my_user/.ssh/wrappers/my_app_deploy_wrapper.sh
+end
 ```
 
 The generated shell file that you must reference in your deploy block is `deploy_wrapper.sh` prepended by whatever you
