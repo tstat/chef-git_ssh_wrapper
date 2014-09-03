@@ -35,7 +35,7 @@ deploy "my_app" do
   user "my_user"
   deploy_to "/var/www/my_app.com"
   action :deploy
-  ssh_wrapper "/home/my_user/.ssh/wrappers/my_app_deploy_wrapper.sh
+  ssh_wrapper "/home/my_user/.ssh/wrappers/my_app_deploy_wrapper.sh"
 end
 ```
 
